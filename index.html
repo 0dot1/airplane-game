@@ -16,13 +16,13 @@
         
         body {
             overflow: hidden;
-            background: #0a0a1a;
+            background: #f5f5f5;
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         #gameCanvas {
             display: block;
-            background: linear-gradient(180deg, #0f0f2e 0%, #1a1a3e 50%, #0d0d1f 100%);
+            background: linear-gradient(180deg, #e8e8e8 0%, #f0f0f0 50%, #e0e0e0 100%);
         }
         
         .ui-overlay {
@@ -39,20 +39,20 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            color: #fff;
+            color: #1a1a1a;
             font-size: 1.2em;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
         
         .score-board .label {
             font-size: 0.7em;
-            opacity: 0.7;
+            opacity: 0.6;
+            color: #666;
         }
         
         .score-board .value {
             font-size: 1.5em;
             font-weight: bold;
-            color: #ffd700;
+            color: #dc2626;
         }
         
         .health-bar {
@@ -63,7 +63,7 @@
         }
         
         .health-bar .label {
-            color: #fff;
+            color: #333;
             font-size: 0.7em;
             opacity: 0.7;
             margin-bottom: 5px;
@@ -71,22 +71,21 @@
         
         .health-fill {
             height: 10px;
-            background: linear-gradient(90deg, #ef4444, #22c55e);
+            background: linear-gradient(90deg, #dc2626, #2563eb);
             border-radius: 5px;
             transition: width 0.3s;
-            box-shadow: 0 0 10px rgba(34,197,94,0.5);
         }
         
         .level-indicator {
             position: absolute;
             top: 70px;
             left: 20px;
-            color: #fff;
+            color: #333;
             font-size: 0.9em;
         }
         
         .level-indicator span {
-            color: #60a5fa;
+            color: #2563eb;
             font-weight: bold;
         }
         
@@ -110,11 +109,10 @@
         .menu-title {
             font-size: 3em;
             font-weight: bold;
-            background: linear-gradient(45deg, #60a5fa, #a78bfa, #f472b6);
+            background: linear-gradient(45deg, #1a1a1a, #dc2626);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(96,165,250,0.5);
             animation: titlePulse 2s infinite;
         }
         
@@ -131,26 +129,26 @@
         
         .menu-btn {
             padding: 18px 60px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(135deg, #1a1a1a, #dc2626);
             border: none;
             border-radius: 30px;
             color: white;
             font-size: 1.3em;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(59,130,246,0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             transition: all 0.3s;
             pointer-events: auto;
         }
         
         .menu-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(59,130,246,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
         
         .final-score {
             font-size: 2em;
-            color: #ffd700;
+            color: #dc2626;
             margin: 20px 0;
         }
         
@@ -404,9 +402,9 @@
             ctx.translate(x, y);
             
             if (isPlayer) {
-                // 玩家飞机 - 蓝色科幻风格
+                // 玩家飞机 - 蓝黑风格
                 // 机身
-                ctx.fillStyle = '#3b82f6';
+                ctx.fillStyle = '#1e3a5f';
                 ctx.beginPath();
                 ctx.moveTo(0, -30);
                 ctx.lineTo(-15, 20);
@@ -416,7 +414,7 @@
                 ctx.fill();
                 
                 // 机翼
-                ctx.fillStyle = '#60a5fa';
+                ctx.fillStyle = '#2563eb';
                 ctx.beginPath();
                 ctx.moveTo(-25, 0);
                 ctx.lineTo(-15, 20);
@@ -432,14 +430,14 @@
                 ctx.fill();
                 
                 // 驾驶舱
-                ctx.fillStyle = '#93c5fd';
+                ctx.fillStyle = '#60a5fa';
                 ctx.beginPath();
                 ctx.ellipse(0, -5, 5, 10, 0, 0, Math.PI * 2);
                 ctx.fill();
                 
                 // 引擎火焰
                 if (gameRunning && !gamePaused) {
-                    ctx.fillStyle = `rgba(255, ${100 + Math.random() * 100}, 0, 0.8)`;
+                    ctx.fillStyle = `rgba(220, 38, 38, ${0.7 + Math.random() * 0.3})`;
                     ctx.beginPath();
                     ctx.moveTo(-8, 20);
                     ctx.lineTo(0, 35 + Math.random() * 10);
@@ -450,15 +448,15 @@
                 
                 // 无敌闪烁
                 if (player.invincible && Math.floor(Date.now() / 100) % 2) {
-                    ctx.strokeStyle = '#60a5fa';
+                    ctx.strokeStyle = '#2563eb';
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     ctx.arc(0, 0, 35, 0, Math.PI * 2);
                     ctx.stroke();
                 }
             } else {
-                // 敌机 - 红色
-                ctx.fillStyle = '#ef4444';
+                // 敌机 - 黑红风格
+                ctx.fillStyle = '#1a1a1a';
                 ctx.beginPath();
                 ctx.moveTo(0, 25);
                 ctx.lineTo(-15, -15);
@@ -493,20 +491,20 @@
             
             if (bullet.isPlayer) {
                 // 玩家子弹 - 蓝色光束
-                ctx.fillStyle = '#60a5fa';
-                ctx.shadowColor = '#3b82f6';
-                ctx.shadowBlur = 10;
+                ctx.fillStyle = '#2563eb';
+                ctx.shadowColor = '#1e40af';
+                ctx.shadowBlur = 8;
                 ctx.fillRect(bullet.x - 3, bullet.y - 10, 6, 20);
                 
                 // 子弹头部
-                ctx.fillStyle = '#93c5fd';
+                ctx.fillStyle = '#60a5fa';
                 ctx.beginPath();
                 ctx.arc(bullet.x, bullet.y - 10, 3, 0, Math.PI * 2);
                 ctx.fill();
             } else {
                 // 敌机子弹 - 红色
-                ctx.fillStyle = '#ef4444';
-                ctx.shadowColor = '#dc2626';
+                ctx.fillStyle = '#dc2626';
+                ctx.shadowColor = '#991b1b';
                 ctx.shadowBlur = 5;
                 ctx.beginPath();
                 ctx.arc(bullet.x, bullet.y, 5, 0, Math.PI * 2);
@@ -758,21 +756,21 @@
         // 绘制游戏
         function draw() {
             // 清空画布
-            ctx.fillStyle = '#0a0a1a';
+            ctx.fillStyle = '#e0e0e0';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             // 绘制渐变背景
             const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, '#0f0f2e');
-            gradient.addColorStop(0.5, '#1a1a3e');
-            gradient.addColorStop(1, '#0d0d1f');
+            gradient.addColorStop(0, '#d0d0d0');
+            gradient.addColorStop(0.5, '#e8e8e8');
+            gradient.addColorStop(1, '#c0c0c0');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // 绘制星星
-            ctx.fillStyle = '#fff';
+            // 绘制星星（改为灰色粒子）
+            ctx.fillStyle = '#999';
             stars.forEach(star => {
-                ctx.globalAlpha = Math.random() * 0.5 + 0.3;
+                ctx.globalAlpha = Math.random() * 0.4 + 0.2;
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
                 ctx.fill();
